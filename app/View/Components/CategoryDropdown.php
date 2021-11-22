@@ -4,7 +4,9 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class author-card extends Component
+use App\Models\Category;
+
+class CategoryDropdown extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +25,6 @@ class author-card extends Component
      */
     public function render()
     {
-        return view('components.author-card');
+        return view('components.category-dropdown', ['categories' => Category::all(), 'currentCategory' => Category::firstWhere('slug', request('category'))]);
     }
 }

@@ -11,7 +11,9 @@
             <div class="flex items-center lg:justify-center text-sm mt-4">
                 <img src="/images/lary-avatar.svg" alt="Lary avatar">
                 <div class="ml-3 text-left">
-                    <h5 class="font-bold">{{ $post->author->name }}</h5>
+                    <h5 class="font-bold">
+                        <a href="/?author={{ $post->author->username }}">{{ $post->author->name }}</a>
+                    </h5>
                 </div>
             </div>
         </div>
@@ -46,6 +48,32 @@
                 {!! $post->body !!}
             </div>
         </div>
+        <section class="col-start-5 col-span-12  space-y-6">
+            <form method="POST" action="" class="border border-gray-200 p-6 rounded-xl">
+                <header class="flex items-center">
+                    <img src="https://i.pravatar.cc/40?u={{ auth()->id() }}" alt="Avatar image for a dummy comment" class="rounded-full" width="40" height="40">
+
+                    <h2 class="ml-4">Want to participate?</h2>
+                </header>
+
+                <div>
+                    <textarea class="rounded-xl text-sm border border-gray-200 w-full p-2 mt-5 focus:outline-none focus:ring" placeholder="Quick, think of something to say" name="comment" id="comment" cols="30" rows="5"></textarea>
+                </div>
+
+                <div>
+                    <button type="submit" class="bg-blue-500 text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-blue-600">Post</button>
+                </div>
+            </form>
+
+
+            @if($post->comments->count() > 0)
+                @foreach ($post->comments as $comment)
+                    <x-post-comment :comment="$comment"/>
+                @endforeach
+            @else
+                <h3 class="text-red-500 p-6">No comments on this post</h3>
+            @endif
+        </section>
     </article>
   </main>
 </x-layout>

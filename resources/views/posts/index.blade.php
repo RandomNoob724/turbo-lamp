@@ -1,7 +1,6 @@
 <x-layout>
-<x-_post-header :categories="$categories" :currentCategory="isset($currentCategory) ? $currentCategory : null">
+@include('posts/_header')
 
-</x-_post-header>
 <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
   @if($posts->count())
     <x-post-featured-card :post="$posts[0]" />
@@ -13,6 +12,7 @@
         @endforeach
       </div>
     @endif
+    {{ $posts->links() }}
   @else
     <h1>No posts available.</h1>
   @endif
